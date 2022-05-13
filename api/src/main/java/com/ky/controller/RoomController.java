@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 
 @RequestMapping("/room")
 @Api(value = "教室借用相关接口", tags = "借教室管理")
+@CrossOrigin
 public class RoomController {
     @Resource
     private RoomService roomService;
