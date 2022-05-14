@@ -18,25 +18,25 @@
 
     <!--Query-->
     <select id="queryRBIByRoomId" resultMap="roomInfoMap">
-        select logId,borrow_room_id,borrow_user_id,borrow_time_id,borrow_date,borrow_reason,apply_time,isNeedMedia,isAdmit
+        select *
         from RBS.borrowInfo
         where borrow_room_id = #{roomId}
     </select>
 
     <select id="queryRBIByUserId" resultMap="roomInfoMap">
-        select logId,borrow_room_id,borrow_user_id,borrow_time_id,borrow_date,borrow_reason,apply_time,isNeedMedia,isAdmit
+        select *
         from RBS.borrowInfo
-        where borrow_user_id = #{userId}
+        where borrow_user = #{userId}
     </select>
 
     <select id="queryRBIByTime" resultMap="roomInfoMap">
-        select logId,borrow_room_id,borrow_user_id,borrow_time_id,borrow_date,borrow_reason,apply_time,isNeedMedia,isAdmit
+        select *
         from RBS.borrowInfo
         where borrow_date = #{arg0} and borrow_time_id = #{arg1}
     </select>
 
     <select id="queryRBIByTimeAndRoomId" resultMap="roomInfoMap">
-        select logId,borrow_room_id,borrow_user_id,borrow_time_id,borrow_date,borrow_reason,apply_time,isNeedMedia,isAdmit
+        select *
         from RBS.borrowInfo
         where borrow_time_id = #{arg0} and borrow_date = #{arg1} and borrow_room_id = #{arg2}
     </select>
@@ -46,10 +46,10 @@
 
 
     <!--Operator-->
-    <insert id="borrow">
-        INSERT INTO RBS.borrowInfo (logId, borrow_room_id, borrow_time_id, borrow_date, borrow_reason, apply_time, borrow_user_id)
-        VALUE (#{RBI.borrow_roomid},#{RBI.borrow_time_id},#{RBI.borrow_date},#{RBI.borrow_reason},#{RBI.apply_time},#{RBI.borrow_user_id})
-    </insert>
+    <select id="borrow" resultMap="roomInfoMap">
+        insert into RBS.borrowInfo (borrow_date, borrow_time_id, borrow_time_name, borrow_room_id, borrow_room_name, borrow_user,borrow_reason, apply_time,isNeedMedia,isAdmit)
+        values (#{arg0},#{arg1},#{arg2},#{arg3},#{arg4},#{arg5},#{arg6},#{arg7},1,1)
+    </select>
 
     <select id="cancel" resultMap="roomInfoMap">
 

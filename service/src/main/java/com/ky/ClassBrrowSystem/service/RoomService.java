@@ -6,21 +6,18 @@ public interface RoomService {
     //----------------SearchRoomInfo----------------
     public ResultVo getAllRoom();
 
+    public ResultVo queryRoomByBorrowOptions(String date,int timeId,int isSpecial);
+
     public ResultVo searchRoomById (String roomId);//依据id查询教室信息
     //-------------SearchRoomBorrowInfo-------------
     public ResultVo searchBorrowedInfoByRoomId(String roomId);//该教室的所有借用信息
 
     public ResultVo searchBorrowedInfoByUserId(String userid);//查询用户的所有借用记录
 
-    public ResultVo searchBorrowedInfoByTime(String date, int timeId);//该时间空余的教室
-
-    public ResultVo searchBorrowedInfoByTimeAndRoomId(int timeId,String data, String roomId);//该教室该时间是否空余
-
-    //public ResultVo searchBorrowedInfoBySpan(String name, String Data, String TimeBegin, String TimeEnd);//查看该教室某时间段内的借用信息
+    public ResultVo searchBorrowedInfoByTimeAndRoomId(int timeId,String date, String roomId);//该教室该时间是否空余
 
     //-------------RoomBorrowOperate-------------
-//    public ResultVo borrow (int roomId, String borrowUser,int timeId, String borrowDate,String borrowReason, String applyTime, int isNeedMedia, int isAdmit);
-    public ResultVo borrow (String roomId,int timeId, String borrowUser,String date,String reason,int isNeedMedia);
+    public ResultVo borrow (String date,int timeId, String timeName,String roomId, String roomName,String user,String reason,String applyTime);
 
 
     public ResultVo cancel (int logId);//借用记录id

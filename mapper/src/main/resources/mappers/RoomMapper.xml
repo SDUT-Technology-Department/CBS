@@ -19,6 +19,16 @@
         from RBS.roomInfo
     </select>
 
+    <select id="queryRoomByBorrowOptions" resultMap="roomInfoMap">
+        select *
+        from RBS.roomInfo
+        where isSpecial = #{arg2} and room_id not in(
+            select room_id
+            from RBS.borrowInfo
+            where borrow_date = #{arg0} and borrow_time_id = #{arg1}
+        )
+    </select>
+
     <select id="queryRoomById" resultMap="roomInfoMap">
         select room_id,room_name,isMedia,capacity,img,isSpecial,description
         from RBS.roomInfo
@@ -30,6 +40,5 @@
         from RBS.roomInfo
         where isMedia = #{isMedia}
     </select>
-
 
 </mapper>

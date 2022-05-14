@@ -30,7 +30,7 @@ public class UserController  {
         System.out.println(jsonParam);
 
         Map<String,Object> map =new HashMap<>();
-        //开始转换
+
         String userId = jsonParam.getAsString("userId");
         String pwd = jsonParam.getAsString("pwd");
 

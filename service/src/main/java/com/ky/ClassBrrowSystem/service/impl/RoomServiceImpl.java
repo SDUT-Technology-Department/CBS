@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.beans.Transient;
 import java.util.List;
 
 @Service
@@ -27,8 +26,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public  ResultVo getAllRoom(){
         List<Room> room = roomDAO.getAllRoom();
-        System.out.println(room.size());
-        System.out.println(room);
+
         if (room == null){
             return new ResultVo(400,"未查询到教室信息",null);
         }else {
@@ -47,6 +45,19 @@ public class RoomServiceImpl implements RoomService {
         }
     }
 
+    @Override
+    public ResultVo queryRoomByBorrowOptions(String date,int timeId,int isSpecial){
+        List<Room> room = roomDAO.queryRoomByBorrowOptions(date,timeId,isSpecial);
+
+        if (room == null){
+            return new ResultVo(400,"该条件下没有空闲教室",null);
+        }else {
+            return new ResultVo(200,"查询成功",room);
+        }
+    }
+    /*
+     * 查询教室借用信息
+     * */
     @Override
     public ResultVo searchBorrowedInfoByRoomId(String roomId) {
         RoomBorrowedInfo RBI = roomBorrowInfoDAO.queryRBIByRoomId(roomId);
@@ -70,47 +81,18 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public ResultVo searchBorrowedInfoByTime(String date, int timeId) {
-        RoomBorrowedInfo RBI = roomBorrowInfoDAO.queryRBIByTime(date,timeId);
-
-        if (RBI == null){
-            return new ResultVo(400,"该时间段没有可用教室", null);
-        }else {
-            return new ResultVo(200,"查询成功",RBI);
-        }
+    public ResultVo searchBorrowedInfoByTimeAndRoomId(int timeId, String data, String roomId) {
+        return null;
     }
 
     @Override
-    public ResultVo searchBorrowedInfoByTimeAndRoomId(int timeId,String data,String roomId){
-        RoomBorrowedInfo RBI = roomBorrowInfoDAO.queryRBIByTimeAndRoomId(timeId,data,roomId);
-
-        if (RBI == null){
-            return new ResultVo(400,"该时间段没有可用教室", null);
-        }else {
-            return new ResultVo(200,"查询成功",RBI);
-        }
-    }
-//    @Override
-//    public ResultVo searchBorrowedInfoBySpan(String name, String Data, String TimeBegin, String TimeEnd) {
-//        return null;
-//    }
-
-    @Transient
-    public ResultVo borrow(String roomId,int timeId, String borrowUser,String date,String reason,int isNeedMedia){
+    public ResultVo borrow(String date,int timeId, String timeName,String roomId, String roomName,String user,String reason,String applyTime){
         synchronized (this) {//线程锁
             RoomBorrowedInfo RBI = roomBorrowInfoDAO.queryRBIByTimeAndRoomId(timeId, date, roomId);
 
             if (RBI == null) {
-                RBI = new RoomBorrowedInfo();
-                RBI.setBorrowRoomId(roomId);
-                RBI.setBorrowUserId(borrowUser);
-                RBI.setBorrowTimeId(timeId);
-                RBI.setBorrowDate(date);
-                RBI.setBorrowReason(reason);
-                RBI.setIsNeedMedia(isNeedMedia);
-                RBI.setIsAdmit(1);
-                System.out.println("--------" + RBI);
-//                int i = roomBorrowInfoDAO.borrow(RBI);
+                roomBorrowInfoDAO.borrow(date,timeId,timeName,roomId,roomName,user,reason,applyTime);
+
                 return new ResultVo(200, "登记成功", null);
             } else {
                 return new ResultVo(400, "该教室在此时间段内已被占用", RBI);

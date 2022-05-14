@@ -3,10 +3,13 @@ package com.ky.controller;
 import com.ky.ClassBrrowSystem.service.RoomService;
 import com.ky.ClassBrrowSystem.vo.ResultVo;
 import io.swagger.annotations.Api;
+import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -41,6 +44,25 @@ public class RoomController {
         return roomService.searchRoomById(roomId);
     }
 
+    @RequestMapping(value = "/searchRoomForBorrow", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultVo searchRoomForBorrow(@RequestBody JSONObject jsonParam){
+
+        String date = jsonParam.getAsString("date");
+        int timeId = (int) jsonParam.getAsNumber("timeId");
+
+        int isSpecial;
+
+        String isSpecialS = jsonParam.getAsString("isSpecial");
+
+        if (isSpecialS.equals("true")){
+            isSpecial = 1;
+        }else {
+            isSpecial = 0;
+        }
+
+        return roomService.queryRoomByBorrowOptions(date,timeId,isSpecial);
+    }
     //-------------SearchRoomBorrowInfo-------------
     @RequestMapping(value = "/searchBorrowedInfoByRoomId/{roomId}",method = RequestMethod.GET)
     public ResultVo searchBorrowedInfoByRoomId(@PathVariable("roomId") String roomId){
@@ -52,20 +74,20 @@ public class RoomController {
         return roomService.searchBorrowedInfoByUserId(userId);
     }
 
-    @RequestMapping(value = "/searchBorrowedInfoByTime", method = RequestMethod.POST)
-    public ResultVo searchBorrowedInfoByTime(String date, int timeId){
-        return roomService.searchBorrowedInfoByTime(date,timeId);
-    }
-
-    @RequestMapping(value = "/searchBorrowedInfoByTimeAndRoomId", method = RequestMethod.POST)
-    public ResultVo searchBorrowedInfoByTimeAndRoomId(int timeId,String data,String roomId){
-        return roomService.searchBorrowedInfoByTimeAndRoomId(timeId,data,roomId);
-    }
-
     //---------------RoomBorrowOperator---------------
-    @PostMapping(value = "/borrow")                                    //等价格于RequestMapping(value = "/borrow/{id}", method = RequestMethod.POST)
-    public ResultVo borrowRoom(String roomId,int timeId, String borrowUser,String date,String reason,int isNeedMedia){
-        return roomService.borrow(roomId,timeId,borrowUser,date,reason,isNeedMedia);
+    @PostMapping(value = "/borrow")//等价格于RequestMapping(value = "/borrow/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultVo borrowRoom(@RequestBody JSONObject jsonParam){
+        String date = jsonParam.getAsString("date");
+        int timeId = (int) jsonParam.getAsNumber("timeId");
+        String timeName = jsonParam.getAsString("timeName");
+        String roomId = jsonParam.getAsString("roomId");
+        String roomName = jsonParam.getAsString("roomName");
+        String user = jsonParam.getAsString("user");
+        String reason = jsonParam.getAsString("reason");
+        String applyTime = jsonParam.getAsString("applyTime");
+
+        return roomService.borrow(date,timeId,timeName,roomId,roomName,user,reason,applyTime);
     }
 
     @RequestMapping(value = "/cancel/{logId}", method = RequestMethod.DELETE)

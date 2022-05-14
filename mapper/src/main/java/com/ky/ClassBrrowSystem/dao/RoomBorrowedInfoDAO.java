@@ -7,13 +7,9 @@ public interface RoomBorrowedInfoDAO {
 
     public RoomBorrowedInfo queryRBIByUserId(String userId);
 
-    public RoomBorrowedInfo queryRBIByTime(String date, int timeId);
-
-    public RoomBorrowedInfo queryRBIByTimeAndRoomId(int timeId,String date,String roomId);
-
-    //    public RoomBorrowedInfo borrow(int roomId, String borrowUser,int timeId, String borrowDate,String borrowReason, String applyTime, int isNeedMedia, int isAdmit);
-    public RoomBorrowedInfo borrow(int roomId, int timeId, String borrowUser, String date, String reason, int isNeedMedia);
-
+    public RoomBorrowedInfo queryRBIByTimeAndRoomId(int timeId,String date, String roomId);
 
     public RoomBorrowedInfo cancel(String logId);
+
+    public RoomBorrowedInfo borrow(String date, int timeId, String timeName, String roomId, String roomName, String user, String reason, String applyTime);
 }
