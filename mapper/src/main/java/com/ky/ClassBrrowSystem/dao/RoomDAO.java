@@ -2,9 +2,13 @@ package com.ky.ClassBrrowSystem.dao;
 
 import com.ky.ClassBrrowSystem.enity.Room;
 
+import java.util.List;
+
 
 public interface RoomDAO {
-    public Room queryRoomById(int roomId);
+    public List<Room> getAllRoom();
+
+    public Room queryRoomById(String roomId);
 
     public Room queryRoomByMedia(Boolean isMedia);
 }

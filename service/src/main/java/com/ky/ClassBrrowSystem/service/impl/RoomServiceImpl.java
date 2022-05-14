@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.beans.Transient;
+import java.util.List;
 
 @Service
 @Scope("singleton")
@@ -24,7 +25,19 @@ public class RoomServiceImpl implements RoomService {
     * 查询教室信息
     * */
     @Override
-    public ResultVo searchRoomById(int roomId) {
+    public  ResultVo getAllRoom(){
+        List<Room> room = roomDAO.getAllRoom();
+        System.out.println(room.size());
+        System.out.println(room);
+        if (room == null){
+            return new ResultVo(400,"未查询到教室信息",null);
+        }else {
+            return new ResultVo(200,"查询成功",room);
+        }
+    }
+
+    @Override
+    public ResultVo searchRoomById(String roomId) {
         Room room = roomDAO.queryRoomById(roomId);
 
         if (room == null){
@@ -35,7 +48,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public ResultVo searchBorrowedInfoByRoomId(int roomId) {
+    public ResultVo searchBorrowedInfoByRoomId(String roomId) {
         RoomBorrowedInfo RBI = roomBorrowInfoDAO.queryRBIByRoomId(roomId);
 
         if (RBI == null){
@@ -68,7 +81,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public ResultVo searchBorrowedInfoByTimeAndRoomId(int timeId,String data,int roomId){
+    public ResultVo searchBorrowedInfoByTimeAndRoomId(int timeId,String data,String roomId){
         RoomBorrowedInfo RBI = roomBorrowInfoDAO.queryRBIByTimeAndRoomId(timeId,data,roomId);
 
         if (RBI == null){
@@ -83,7 +96,7 @@ public class RoomServiceImpl implements RoomService {
 //    }
 
     @Transient
-    public ResultVo borrow(int roomId,int timeId, String borrowUser,String date,String reason,int isNeedMedia){
+    public ResultVo borrow(String roomId,int timeId, String borrowUser,String date,String reason,int isNeedMedia){
         synchronized (this) {//线程锁
             RoomBorrowedInfo RBI = roomBorrowInfoDAO.queryRBIByTimeAndRoomId(timeId, date, roomId);
 

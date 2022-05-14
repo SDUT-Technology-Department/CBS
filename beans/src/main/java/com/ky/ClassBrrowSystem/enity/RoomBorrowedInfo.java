@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RoomBorrowedInfo {
     private String logId;
-    private int borrowRoomId;
+    private String borrowRoomId;
     private String borrowUserId;
     private int borrowTimeId;
     private String borrowDate;

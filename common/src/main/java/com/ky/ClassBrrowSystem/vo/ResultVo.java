@@ -14,5 +14,4 @@ public class ResultVo {
     private String msg;
     //响应内容
     private Object data;
-
 }

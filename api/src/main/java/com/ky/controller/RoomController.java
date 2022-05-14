@@ -31,14 +31,19 @@ public class RoomController {
     * DELETE 删除
     * */
     //----------------SearchRoomInfo----------------
+    @RequestMapping(value = "/getAllRoom",method = RequestMethod.GET)
+    public ResultVo getAllRoom(){
+        return roomService.getAllRoom();
+    }
+
     @RequestMapping(value = "/searchRoomById", method = RequestMethod.POST)
-    public ResultVo searchRoomById(int roomId){
+    public ResultVo searchRoomById(String roomId){
         return roomService.searchRoomById(roomId);
     }
 
     //-------------SearchRoomBorrowInfo-------------
     @RequestMapping(value = "/searchBorrowedInfoByRoomId/{roomId}",method = RequestMethod.GET)
-    public ResultVo searchBorrowedInfoByRoomId(@PathVariable("roomId") int roomId){
+    public ResultVo searchBorrowedInfoByRoomId(@PathVariable("roomId") String roomId){
         return roomService.searchBorrowedInfoByRoomId(roomId);
     }
 
@@ -53,13 +58,13 @@ public class RoomController {
     }
 
     @RequestMapping(value = "/searchBorrowedInfoByTimeAndRoomId", method = RequestMethod.POST)
-    public ResultVo searchBorrowedInfoByTimeAndRoomId(int timeId,String data,int roomId){
+    public ResultVo searchBorrowedInfoByTimeAndRoomId(int timeId,String data,String roomId){
         return roomService.searchBorrowedInfoByTimeAndRoomId(timeId,data,roomId);
     }
 
     //---------------RoomBorrowOperator---------------
     @PostMapping(value = "/borrow")                                    //等价格于RequestMapping(value = "/borrow/{id}", method = RequestMethod.POST)
-    public ResultVo borrowRoom(int roomId,int timeId, String borrowUser,String date,String reason,int isNeedMedia){
+    public ResultVo borrowRoom(String roomId,int timeId, String borrowUser,String date,String reason,int isNeedMedia){
         return roomService.borrow(roomId,timeId,borrowUser,date,reason,isNeedMedia);
     }
 

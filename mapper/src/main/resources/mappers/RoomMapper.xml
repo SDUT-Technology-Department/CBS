@@ -14,6 +14,11 @@
         <result column="description" property="description"/>
     </resultMap>
 
+    <select id="getAllRoom" resultMap="roomInfoMap">
+        select *
+        from RBS.roomInfo
+    </select>
+
     <select id="queryRoomById" resultMap="roomInfoMap">
         select room_id,room_name,isMedia,capacity,img,isSpecial,description
         from RBS.roomInfo
