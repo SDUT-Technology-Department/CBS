@@ -23,7 +23,7 @@
         select *
         from RBS.roomInfo
         where isSpecial = #{arg2} and room_id not in(
-            select room_id
+            select borrow_room_id
             from RBS.borrowInfo
             where borrow_date = #{arg0} and borrow_time_id = #{arg1}
         )

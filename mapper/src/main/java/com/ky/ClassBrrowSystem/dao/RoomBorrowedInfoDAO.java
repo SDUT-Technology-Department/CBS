@@ -1,9 +1,12 @@
 package com.ky.ClassBrrowSystem.dao;
 
+import com.ky.ClassBrrowSystem.enity.Room;
 import com.ky.ClassBrrowSystem.enity.RoomBorrowedInfo;
 
+import java.util.List;
+
 public interface RoomBorrowedInfoDAO {
-    public RoomBorrowedInfo queryRBIByRoomId(String roomId);
+    public List<RoomBorrowedInfo>  queryRBIByOptions(String date, int timeId, String reason, String roomId, String userId);
 
     public RoomBorrowedInfo queryRBIByUserId(String userId);
 

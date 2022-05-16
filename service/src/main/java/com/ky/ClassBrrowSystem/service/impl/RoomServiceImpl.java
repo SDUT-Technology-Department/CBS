@@ -59,8 +59,8 @@ public class RoomServiceImpl implements RoomService {
      * 查询教室借用信息
      * */
     @Override
-    public ResultVo searchBorrowedInfoByRoomId(String roomId) {
-        RoomBorrowedInfo RBI = roomBorrowInfoDAO.queryRBIByRoomId(roomId);
+    public ResultVo  queryRBIByOptions(String date, int timeId, String reason, String roomId, String userId) {
+        List<RoomBorrowedInfo> RBI = roomBorrowInfoDAO.queryRBIByOptions(date,timeId,reason,roomId,userId);
 
         if (RBI == null){
             return new ResultVo(400,"该教室没有借用记录", null);

@@ -64,9 +64,25 @@ public class RoomController {
         return roomService.queryRoomByBorrowOptions(date,timeId,isSpecial);
     }
     //-------------SearchRoomBorrowInfo-------------
-    @RequestMapping(value = "/searchBorrowedInfoByRoomId/{roomId}",method = RequestMethod.GET)
-    public ResultVo searchBorrowedInfoByRoomId(@PathVariable("roomId") String roomId){
-        return roomService.searchBorrowedInfoByRoomId(roomId);
+    @RequestMapping(value = "/searchBorrowedInfoByOptions",method = RequestMethod.POST)
+    public ResultVo searchBorrowedInfoByOptions(@RequestBody JSONObject jsonParam) {
+
+        String date = jsonParam.getAsString("date");
+//        int timeId = 0;
+//        if (jsonParam.getAsString("timeId") != null) {
+//            timeId = (int) jsonParam.getAsNumber("timeId");
+//        }
+//
+//        String reason = jsonParam.getAsString("reason");
+//        String roomId = jsonParam.getAsString("roomId");
+//        String userId = jsonParam.getAsString("userId");
+
+        int timeId = 0;
+        String reason = null;
+        String roomId = null;
+        String userId = null;
+
+        return roomService.queryRBIByOptions(date, timeId, reason, roomId, userId);
     }
 
     @RequestMapping(value = "/searchBorrowedInfoByUserId/{userId}",method = RequestMethod.GET)

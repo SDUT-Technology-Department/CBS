@@ -17,10 +17,16 @@
     </resultMap>
 
     <!--Query-->
-    <select id="queryRBIByRoomId" resultMap="roomInfoMap">
-        select *
-        from RBS.borrowInfo
-        where borrow_room_id = #{roomId}
+    <select id="queryRBIByOptions" resultMap="roomInfoMap">
+        select borrow_room_id,borrow_room_name,borrow_date,borrow_time_id,borrow_reason,borrow_time_name,username,user_id,apply_time
+        from RBS.borrowInfo,RBS.users
+        <where>
+            <if test="borrow_date != null">borrow_date = #{arg0}</if>
+            <if test="borrow_time_id != 0">borrow_time_id = #{arg1}</if>
+            <if test="borrow_reason != null">borrow_reason = #{arg2}</if>
+            <if test="borrow_room_id != null">borrow_room_id = #{arg3}</if>
+            <if test="user_id != null">user_id = #{arg4}</if>
+        </where>
     </select>
 
     <select id="queryRBIByUserId" resultMap="roomInfoMap">
