@@ -7,17 +7,25 @@
         <id column="user_id" property="userId"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
+        <result column="role" property="role"/>
+        <result column="contact" property="contact"/>
         <result column="uClass" property="uClass"/>
     </resultMap>
 
+    <select id="checkLogin" resultMap="userMap">
+        select username,user_id,password
+        from RBS.users
+        where user_id = #{id}
+    </select>
+
     <select id="queryUserByName" resultMap="userMap">
-        select user_id,username,password,uClass
+        select username,user_id,role,contact
         from RBS.users
         where username = #{name}
     </select>
 
     <select id="queryUserById" resultMap="userMap">
-        select user_id,username,password,uClass
+        select username,user_id,role,contact
         from RBS.users
         where user_id = #{id}
     </select>

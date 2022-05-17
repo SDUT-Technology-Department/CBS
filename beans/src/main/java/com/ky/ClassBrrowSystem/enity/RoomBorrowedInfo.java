@@ -16,5 +16,8 @@ public class RoomBorrowedInfo {
     private String borrowReason;
     private String applyTime;
     private int isNeedMedia;
-    private int isAdmit;
+    private String borrowRoomName;
+    private String borrowTimeName;
+    private String username;
+    private String userId;
 }

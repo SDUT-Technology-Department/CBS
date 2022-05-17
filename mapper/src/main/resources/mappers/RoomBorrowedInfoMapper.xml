@@ -7,18 +7,21 @@
     <resultMap id="roomInfoMap" type="RoomBorrowedInfo">
         <id column="logId" property="logId"/>
         <result column="borrow_room_id" property="borrowRoomId"/>
-        <result column="borrow_user_id" property="borrowUserId"/>
-        <result column="borrow_time_id" property="borrowTimeId"/>
+        <result column="borrow_room_name" property="borrowRoomName"/>
         <result column="borrow_date" property="borrowDate"/>
+        <result column="borrow_time_id" property="borrowTimeId"/>
         <result column="borrow_reason" property="borrowReason"/>
+        <result column="borrow_time_name" property="borrowTimeName"/>
+        <result column="username" property="username"/>
+        <result column="user_id" property="userId"/>
         <result column="apply_time" property="applyTime"/>
         <result column="isNeedMedia" property="isNeedMedia"/>
-        <result column="isAdmit" property="isAdmit"/>
+
     </resultMap>
 
     <!--Query-->
     <select id="queryRBIByOptions" resultMap="roomInfoMap">
-        select borrow_room_id,borrow_room_name,borrow_date,borrow_time_id,borrow_reason,borrow_time_name,username,user_id,apply_time
+        select borrow_room_id,borrow_room_name,borrow_date,borrow_time_id,borrow_reason,borrow_time_name,username,user_id,apply_time,isNeedMedia
         from RBS.borrowInfo,RBS.users
         <where>
             <if test="borrow_date != null">borrow_date = #{arg0}</if>

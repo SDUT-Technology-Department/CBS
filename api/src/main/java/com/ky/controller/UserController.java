@@ -27,15 +27,9 @@ public class UserController  {
     @ResponseBody
     public ResultVo login(@RequestBody JSONObject jsonParam){
 
-        System.out.println(jsonParam);
-
-        Map<String,Object> map =new HashMap<>();
-
         String userId = jsonParam.getAsString("userId");
         String pwd = jsonParam.getAsString("pwd");
 
-        System.out.println(userId);
-        System.out.println(pwd);
         return uerService.checkLogin(userId,pwd);
     }
 }

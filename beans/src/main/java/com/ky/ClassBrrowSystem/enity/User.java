@@ -12,5 +12,7 @@ public class User {
     private String username;
     private String password;
     private String uClass;
+    private String role;
+    private String contact;
 }
 
