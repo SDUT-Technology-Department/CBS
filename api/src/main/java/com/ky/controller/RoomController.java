@@ -69,18 +69,33 @@ public class RoomController {
 
         System.out.println(jsonParam);
 
-        String date = jsonParam.getAsString("date");
+        String date = null;
+//        if (jsonParam.get("date") != '') {
+//            date = jsonParam.getAsString("date");
+//        }
+
+
         int timeId = 0;
-        if (jsonParam.getAsString("timeId") != null) {
-            timeId = (int) jsonParam.getAsNumber("timeId");
-        }
+//        if (jsonParam.get("timeId") != null) {
+//            timeId = (int) jsonParam.getAsNumber("timeId");
+//        }
 
-        String reason = jsonParam.getAsString("reason");
-        String roomId = jsonParam.getAsString("roomId");
-        String userId = jsonParam.getAsString("userId");
+        String reason = null;
+//        if (jsonParam.get("timeId") != null) {
+//            reason = jsonParam.getAsString("reason");
+//        }
 
 
-        System.out.println(date);
+        String roomId = null;
+//        if (jsonParam.get("timeId") != null) {
+//            roomId = jsonParam.getAsString("roomId");
+//        }
+
+        String userId = null;
+//        if (jsonParam.get("timeId") != null) {
+//            userId = jsonParam.getAsString("userId");
+//        }
+
         return roomService.queryRBIByOptions(date, timeId, reason, roomId, userId);
 //        return null;
     }
