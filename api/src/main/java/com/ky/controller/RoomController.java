@@ -64,39 +64,57 @@ public class RoomController {
         return roomService.queryRoomByBorrowOptions(date,timeId,isSpecial);
     }
     //-------------SearchRoomBorrowInfo-------------
+    @RequestMapping(value = "getAllRBI", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultVo getAllRBI(){
+
+        return roomService.getAllRoomBorrowInfo();
+    }
+
     @RequestMapping(value = "/searchBorrowedInfoByOptions",method = RequestMethod.POST)
     public ResultVo searchBorrowedInfoByOptions(@RequestBody JSONObject jsonParam) {
 
-        System.out.println(jsonParam);
+//        System.out.println(jsonParam);
 
         String date = null;
-//        if (jsonParam.get("date") != '') {
-//            date = jsonParam.getAsString("date");
-//        }
+        if (!jsonParam.get("date").equals("")) {
+            date = jsonParam.getAsString("date");
+        }
 
+        //timeId默认为0不可能为空
+        int timeId = (int) jsonParam.getAsNumber("timeId");
 
-        int timeId = 0;
-//        if (jsonParam.get("timeId") != null) {
-//            timeId = (int) jsonParam.getAsNumber("timeId");
-//        }
 
         String reason = null;
-//        if (jsonParam.get("timeId") != null) {
-//            reason = jsonParam.getAsString("reason");
-//        }
+        if (!jsonParam.get("reason").equals("")) {
+            reason = jsonParam.getAsString("reason");
+        }
 
-
+        //roomId默认为0不可能为空
         String roomId = null;
-//        if (jsonParam.get("timeId") != null) {
-//            roomId = jsonParam.getAsString("roomId");
-//        }
+        if (!jsonParam.get("roomId").equals("")) {
+            roomId = jsonParam.getAsString("roomId");
+        }
+
 
         String userId = null;
-//        if (jsonParam.get("timeId") != null) {
-//            userId = jsonParam.getAsString("userId");
-//        }
+        if (!jsonParam.get("userId").equals("")) {
+            userId = jsonParam.getAsString("userId");
+        }
 
-        return roomService.queryRBIByOptions(date, timeId, reason, roomId, userId);
+//        System.out.println(date);
+//        System.out.println(timeId);
+//        System.out.println(reason);
+//        System.out.println(roomId);
+//        System.out.println(userId);
+
+        if (date == null && reason == null && timeId == 0 && roomId == null){
+//            System.out.println(3546546);
+            return roomService.getAllRoomBorrowInfo();
+        }else{
+//            System.out.println(1111111111);
+            return roomService.queryRBIByOptions(date, timeId, reason, roomId, userId);
+        }
 //        return null;
     }
 
@@ -118,13 +136,23 @@ public class RoomController {
         String reason = jsonParam.getAsString("reason");
         String applyTime = jsonParam.getAsString("applyTime");
 
+
         return roomService.borrow(date,timeId,timeName,roomId,roomName,user,reason,applyTime);
     }
 
-    @RequestMapping(value = "/cancel/{logId}", method = RequestMethod.DELETE)
-    public ResultVo cancelBorrow(@PathVariable("logId") String logId){
+    @RequestMapping(value = "/cancel", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultVo cancel(@RequestBody JSONObject jsonParam){
 
-        return null;
+        String borrow_room_id = jsonParam.getAsString("roomId");
+        String borrow_user = jsonParam.getAsString("userId");
+        int borrow_time_id = (int) jsonParam.getAsNumber("timeId");
+        String borrow_date = jsonParam.getAsString("date");
+
+
+        return roomService.cancel(borrow_room_id,borrow_user,borrow_time_id, borrow_date);
+
     }
 
 }
+

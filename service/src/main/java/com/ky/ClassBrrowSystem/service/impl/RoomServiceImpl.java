@@ -59,6 +59,13 @@ public class RoomServiceImpl implements RoomService {
      * 查询教室借用信息
      * */
     @Override
+    public ResultVo getAllRoomBorrowInfo(){
+        List<RoomBorrowedInfo> RBI = roomBorrowInfoDAO.getAllRoomBorrowInfo();
+
+        return new ResultVo(200,"查询成功",RBI);
+    }
+
+    @Override
     public ResultVo  queryRBIByOptions(String date, int timeId, String reason, String roomId, String userId) {
         List<RoomBorrowedInfo> RBI = roomBorrowInfoDAO.queryRBIByOptions(date,timeId,reason,roomId,userId);
 
@@ -101,7 +108,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public ResultVo cancel(int id) {
-        return null;
+    public ResultVo cancel(String borrow_room_id,String borrow_user,int borrow_time_id, String borrow_date) {
+        int c = roomBorrowInfoDAO.cancel(borrow_room_id,borrow_user,borrow_time_id,borrow_date);
+        return new ResultVo(200,"取消成功",c);
     }
 }

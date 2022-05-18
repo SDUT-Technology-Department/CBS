@@ -5,7 +5,6 @@
 <mapper namespace="com.ky.ClassBrrowSystem.dao.RoomBorrowedInfoDAO">
 
     <resultMap id="roomInfoMap" type="RoomBorrowedInfo">
-        <id column="logId" property="logId"/>
         <result column="borrow_room_id" property="borrowRoomId"/>
         <result column="borrow_room_name" property="borrowRoomName"/>
         <result column="borrow_date" property="borrowDate"/>
@@ -13,24 +12,63 @@
         <result column="borrow_reason" property="borrowReason"/>
         <result column="borrow_time_name" property="borrowTimeName"/>
         <result column="username" property="username"/>
-        <result column="user_id" property="userId"/>
+        <result column="uClass" property="uClass"/>
+        <result column="borrow_user" property="borrowUserId"/>
         <result column="apply_time" property="applyTime"/>
         <result column="isNeedMedia" property="isNeedMedia"/>
 
     </resultMap>
 
     <!--Query-->
+
+    <select id="getAllRoomBorrowInfo" resultMap="roomInfoMap">
+        select
+               borrowInfo.borrow_room_id,
+               borrowInfo.borrow_room_name,
+               borrowInfo.borrow_date,
+               borrowInfo.borrow_time_id,
+               borrowInfo.borrow_reason,
+               borrowInfo.borrow_time_name,
+               users.username,
+               users.uClass,
+               borrowInfo.borrow_user,
+               borrowInfo.apply_time,
+               borrowInfo.isNeedMedia
+        from RBS.borrowInfo,RBS.users
+        where users.user_id = borrowInfo.borrow_user
+        order by apply_time desc
+    </select>
+
     <select id="queryRBIByOptions" resultMap="roomInfoMap">
-        select borrow_room_id,borrow_room_name,borrow_date,borrow_time_id,borrow_reason,borrow_time_name,username,user_id,apply_time,isNeedMedia
+        select
+        borrowInfo.borrow_room_id,
+        borrowInfo.borrow_room_name,
+        borrowInfo.borrow_date,
+        borrowInfo.borrow_time_id,
+        borrowInfo.borrow_reason,
+        borrowInfo.borrow_time_name,
+        users.username,
+        users.uClass,
+        borrowInfo.borrow_user,
+        borrowInfo.apply_time,
+        borrowInfo.isNeedMedia
+
         from RBS.borrowInfo,RBS.users
         <where>
-            <if test="borrow_date != null">borrow_date = #{arg0}</if>
-            <if test="borrow_time_id != 0">borrow_time_id = #{arg1}</if>
-            <if test="borrow_reason != null">borrow_reason = #{arg2}</if>
-            <if test="borrow_room_id != null">borrow_room_id = #{arg3}</if>
-            <if test="user_id != null">user_id = #{arg4}</if>
+            <if test="arg0 != null">and borrow_date = #{arg0}</if>
+            <if test="arg1 != 0">and borrow_time_id = #{arg1}</if>
+            <if test="arg2 != null">and borrow_reason = #{arg2}</if>
+            <if test="arg3 != null">and borrow_room_id = #{arg3}</if>
+            <if test="true">and users.user_id = borrowInfo.borrow_user</if>
         </where>
+
     </select>
+
+
+
+
+
+
 
     <select id="queryRBIByUserId" resultMap="roomInfoMap">
         select *
@@ -60,9 +98,10 @@
         values (#{arg0},#{arg1},#{arg2},#{arg3},#{arg4},#{arg5},#{arg6},#{arg7},1,1)
     </select>
 
-    <select id="cancel" resultMap="roomInfoMap">
-
-    </select>
+    <delete id="cancel">
+        delete from borrowInfo
+        where borrow_room_id = #{arg0} and borrow_user = #{arg1} and borrow_time_id = #{arg2} and borrow_date = #{arg3}
+    </delete>
 
 
 

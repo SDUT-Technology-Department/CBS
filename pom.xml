@@ -37,7 +37,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.16</version>
+                <version>1.18.24</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -58,17 +58,19 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
-                <configuration>
-                    <mainClass>com.ky.ApiApplication</mainClass>
-                </configuration>
                 <executions>
                     <execution>
                         <id>repackage</id>
                         <goals>
                             <goal>repackage</goal>
+                            <goal>build-info</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <mainClass>com.ky.ApiApplication</mainClass>
+                    <classifier>true</classifier>
+                </configuration>
             </plugin>
         </plugins>
     </build>

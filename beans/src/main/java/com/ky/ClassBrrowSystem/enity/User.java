@@ -14,5 +14,6 @@ public class User {
     private String uClass;
     private String role;
     private String contact;
+    private String department;
 }
 

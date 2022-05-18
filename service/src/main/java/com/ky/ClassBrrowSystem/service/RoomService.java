@@ -10,6 +10,8 @@ public interface RoomService {
 
     public ResultVo searchRoomById (String roomId);//依据id查询教室信息
     //-------------SearchRoomBorrowInfo-------------
+    public ResultVo getAllRoomBorrowInfo();
+
     public ResultVo  queryRBIByOptions(String date, int timeId, String reason, String roomId, String userId);//该按条件查询教室
 
     public ResultVo searchBorrowedInfoByUserId(String userid);//查询用户的所有借用记录
@@ -20,5 +22,5 @@ public interface RoomService {
     public ResultVo borrow (String date,int timeId, String timeName,String roomId, String roomName,String user,String reason,String applyTime);
 
 
-    public ResultVo cancel (int logId);//借用记录id
+    public ResultVo cancel (String borrow_room_id,String borrow_user,int borrow_time_id, String borrow_date);//借用记录id
 }

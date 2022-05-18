@@ -10,6 +10,7 @@
         <result column="role" property="role"/>
         <result column="contact" property="contact"/>
         <result column="uClass" property="uClass"/>
+        <result column="department" property="department"/>
     </resultMap>
 
     <select id="checkLogin" resultMap="userMap">
@@ -19,7 +20,7 @@
     </select>
 
     <select id="queryUserByName" resultMap="userMap">
-        select username,user_id,role,contact
+        select username,user_id,role,contact,duties
         from RBS.users
         where username = #{name}
     </select>

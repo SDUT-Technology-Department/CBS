@@ -19,5 +19,5 @@ public class RoomBorrowedInfo {
     private String borrowRoomName;
     private String borrowTimeName;
     private String username;
-    private String userId;
+    private String uClass;
 }
