@@ -2,9 +2,9 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://211.64.28.110:3306/RBS?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-      username: root
-      password: Udkklzxc123.
+      url: jdbc:mysql://XXXXXXX?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+      username:
+      password:
 
 mybatis:
   mapper-locations: classpath:mappers/*Mapper.xml

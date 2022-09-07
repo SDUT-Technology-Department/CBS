@@ -100,7 +100,7 @@
 
     <delete id="cancel">
         delete from borrowInfo
-        where borrow_room_id = #{arg0} and borrow_user = #{arg1} and borrow_time_id = #{arg2} and borrow_date = #{arg3}
+        where borrow_room_id = #{arg0} and borrow_time_id = #{arg2} and borrow_date = #{arg3}
     </delete>
 
 

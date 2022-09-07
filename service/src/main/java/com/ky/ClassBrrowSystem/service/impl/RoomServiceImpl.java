@@ -35,17 +35,6 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public ResultVo searchRoomById(String roomId) {
-        Room room = roomDAO.queryRoomById(roomId);
-
-        if (room == null){
-            return new ResultVo(400,"教室不存在", null);
-        }else {
-            return new ResultVo(200,"查询成功",room);
-        }
-    }
-
-    @Override
     public ResultVo queryRoomByBorrowOptions(String date,int timeId,int isSpecial){
         List<Room> room = roomDAO.queryRoomByBorrowOptions(date,timeId,isSpecial);
 
@@ -85,11 +74,6 @@ public class RoomServiceImpl implements RoomService {
         }else {
             return new ResultVo(200,"查询成功",RBI);
         }
-    }
-
-    @Override
-    public ResultVo searchBorrowedInfoByTimeAndRoomId(int timeId, String data, String roomId) {
-        return null;
     }
 
     @Override

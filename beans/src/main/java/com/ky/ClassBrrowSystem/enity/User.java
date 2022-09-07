@@ -15,5 +15,6 @@ public class User {
     private String role;
     private String contact;
     private String department;
+    private String token;
 }
 
